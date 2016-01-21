@@ -6,9 +6,10 @@ left-sidebar {
     color: red;
     height: 100vh;
     width: 200px;
+    text-align: right;
 
     #expand-left {
-        text-align: right;
+        width: 100%;
     }
 
     #left-menu {

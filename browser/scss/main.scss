@@ -4,6 +4,7 @@
 
 body {
   background: #fdfdfd;
+  overflow: hidden;
 }
 
 @mixin clearfix {
@@ -16,6 +17,11 @@ body {
 
 #main {
   margin: 0 auto;
+}
+
+#main-view {
+    width: 100vw;
+    height: 100vh;
 }
 
 @import 'directives/main';
