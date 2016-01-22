@@ -15,13 +15,15 @@
     <script src="/main.js"></script>
 </head>
 <body ng-app="FullstackGeneratedApp">
-    <div id="main-view">
+    <div id="main-view" ng-controller="MainCtrl">
         <navbar></navbar>
         <left-sidebar
             user="user">
         </left-sidebar>
         <div id="main" ui-view></div>
-        <right-sidebar></right-sidebar>
+        <right-sidebar
+            users="allUsers">
+        </right-sidebar>
     </div>
 </body>
 </html>

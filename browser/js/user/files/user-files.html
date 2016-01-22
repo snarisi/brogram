@@ -1,6 +1,6 @@
 <h1>My Files</h1>
 <ul>
-    <a ng-repeat="file in files" ui-sref="filesById({ id: file._id })">
+    <a ng-repeat="file in files" ui-sref="edit({ file: file._id })">
         <li>
             {{file.name}}
         </li>

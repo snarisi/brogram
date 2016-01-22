@@ -48,4 +48,28 @@ app.run(function ($rootScope, AuthService, $state) {
 
     });
 
+
+});
+
+app.controller('MainCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService, socket) {
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function (e, user) {
+        console.log(user);
+        socket.emit('logged on', { username: user.email, id: socket.id });
+        $scope.user = user;
+    });
+
+    $scope.allUsers = {
+        0: 'none yet'
+    };
+
+    socket.on('newUser', function (users) {
+        $scope.allUsers = Object.keys(users)
+                                .filter(id => id.slice(2) !== socket.id)
+                                .map(id => { return { id: id, username: users[id] } });
+        $scope.$digest();
+    });
+
+    socket.on('connect', function () {
+        console.log(socket.id);
+    })
 });

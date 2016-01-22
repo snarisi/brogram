@@ -4,9 +4,10 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/user/files/user-files.html',
         resolve: {
             files: function (AuthService, File) {
+                console.log('in resolve');
                 return AuthService.getLoggedInUser()
                     .then(user => File.fetchAllByUser(user._id))
-            },
+            }
 
         },
         controller: 'FilesCtrl'

@@ -34,7 +34,10 @@ router.post('/', function (req, res, next) {
 router.put('/:id', function (req, res, next) {
     req.file.text = req.body.text;
     req.file.save()
-        .then(file => res.status(204).json(file))
+        .then(file => {
+            console.log(file);
+            res.status(200).json(file)
+        })
         .then(null, next);
 });
 

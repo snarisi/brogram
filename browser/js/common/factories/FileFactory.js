@@ -9,7 +9,7 @@ app.factory('File', function ($http) {
                 url: '/api/files' + id,
                 data: file
             })
-            .then(res => res.data)
+            .then(res => res.data);
         },
 
         fetchAllByUser: function (userId) {
