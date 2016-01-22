@@ -2,16 +2,20 @@ app.directive('invitation', function ($state) {
     return {
         restrict: 'E',
         scope: {
-            from: '='
+            invitation: '='
         },
         templateUrl: 'js/collaboration/invitation/invitation.html',
         link: function (scope, element, attrs) {
-            let host;
+            let host,
+                file;
+
+            console.log(scope.invitation);
 
             scope.accept = function () {
-                host = scope.from.slice(2);
-                scope.from = null;
-                $state.go('main.edit', { host: host, file: null });
+                host = scope.invitation.host.slice(2);
+                file = scope.invitation.file;
+                scope.invitation = null;
+                $state.go('main.edit', { host: host, file: null, currentFile: file });
             };
 
             scope.reject = function () {

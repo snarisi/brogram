@@ -3,11 +3,14 @@ app.config(function ($stateProvider) {
         url: 'edit?file?host',
         templateUrl: 'js/texteditor/texteditor.html',
         controller: 'EditorCtrl',
+        params: {
+            currentFile: null
+        },
         resolve: {
             currentFile: function ($stateParams, File) {
-                if ($stateParams.file) return File.fetchById($stateParams.file);
-                else if ($stateParams.host) return;
-                else return;
+                if ($stateParams.currentFile) return $stateParams.currentFile;
+                if (!$stateParams.file) return;
+                return File.fetchById($stateParams.file);
             }
         }
     });
@@ -27,6 +30,7 @@ app.controller('EditorCtrl', function ($scope, $state, $stateParams, currentFile
     });
 
     $scope.$watch('currentFile.text', function (newVal, oldVal) {
+        if (!newVal) return;
         socket.updateFile($scope.currentFile);
     });
 

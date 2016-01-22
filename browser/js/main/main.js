@@ -28,8 +28,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser) {
         $scope.$digest();
     });
 
-    socket.listenForInvites(function (id) {
-        $scope.incomingInvitation = id;
+    socket.listenForInvites(function (invitation) {
+        $scope.incomingInvitation = invitation;
+        console.log(invitation);
         $scope.$digest();
     });
 });

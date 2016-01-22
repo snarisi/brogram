@@ -38,9 +38,9 @@ app.factory('socket', function () {
         },
 
         listenForInvites: function (callback) {
-            socket.on('invitation sent', function (id) {
-                console.log('yay, ' + id + ' invited me to join a room');
-                if (callback) callback(id);
+            socket.on('invitation sent', function (data) {
+                console.log('yay, ' + data.host + ' invited me to join a room');
+                if (callback) callback(data);
             })
         },
 

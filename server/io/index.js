@@ -10,6 +10,7 @@ module.exports = function (server) {
 
     const users = {};
     let currentFile = {};
+    let room;
 
     io.on('connection', function (socket) {
         socket.on('disconnect', function () {
@@ -30,13 +31,15 @@ module.exports = function (server) {
         socket.on('send invite', function (userToInvite) {
             room = socket.id;
             socket.join(room);
-            socket.broadcast.to(userToInvite).emit('invitation sent', socket.id);
+            socket.broadcast.to(userToInvite).emit(
+                'invitation sent', { host: socket.id, file: currentFile }
+            );
         });
 
         socket.on('join room', function (roomId) {
             roomId = '/#' + roomId;
             socket.join(roomId);
-            console.log('connected sockets ', io.connected);
+            socket.broadcast.to(socket.id).emit(currentFile);
         });
 
         //
