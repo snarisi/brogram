@@ -20,7 +20,7 @@ app.controller('EditorCtrl', function ($scope, $state, currentFile, user, File, 
     $scope.currentFile = currentFile || { user: user._id };
 
     $scope.$watch('currentFile.text', function (newVal, oldVal) {
-        socket.emit('fileUpdate', newVal);
+        socket.updateFile(newVal);
     });
 
     $scope.save = function (file) {

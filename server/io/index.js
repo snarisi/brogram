@@ -11,26 +11,24 @@ module.exports = function (server) {
     io = socketio(server);
 
     io.on('connection', function (socket) {
-        console.log('socket connect: ', socket.id)
-
         socket.on('disconnect', function () {
             delete users[socket.id];
-            io.emit('newUser', users);
+            io.emit('newUsers', users);
         });
 
-        socket.on('logged on', function (user) {
+        socket.on('logged in', function (user) {
             users[socket.id] = user.username;
-            console.log(users);
-            io.emit('newUser', users);
+            console.log('current users: ', users);
+            io.emit('newUsers', users);
         })
 
         socket.on('fileUpdate', function (data) {
             socket.broadcast.emit('fileUpdate', data);
         });
 
-        socket.on('inviteUser', function (id) {
-            socket.broadcast.to(id).emit('invite');
-        });
+        socket.on('invite', function (id) {
+            socket.broadcast.to(id).emit('invitation', socket.id);
+        })
     });
 
     return io;
