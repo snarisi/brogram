@@ -2,13 +2,14 @@
 var socketio = require('socket.io');
 var io = null;
 
-const users = {};
-
 module.exports = function (server) {
 
     if (io) return io;
 
     io = socketio(server);
+
+    const users = {};
+    let currentFile = {};
 
     io.on('connection', function (socket) {
         socket.on('disconnect', function () {
@@ -18,17 +19,40 @@ module.exports = function (server) {
 
         socket.on('logged in', function (user) {
             users[socket.id] = user.username;
-            console.log('current users: ', users);
             io.emit('newUsers', users);
         })
 
-        socket.on('fileUpdate', function (data) {
-            socket.broadcast.emit('fileUpdate', data);
+        socket.on('typing', function (newFile) {
+            currentFile = newFile;
+            socket.broadcast.to(room).emit('other user typing', newFile);
         });
 
-        socket.on('invite', function (id) {
-            socket.broadcast.to(id).emit('invitation', socket.id);
-        })
+        socket.on('send invite', function (userToInvite) {
+            room = socket.id;
+            socket.join(room);
+            socket.broadcast.to(userToInvite).emit('invitation sent', socket.id);
+        });
+
+        socket.on('join room', function (roomId) {
+            roomId = '/#' + roomId;
+            socket.join(roomId);
+            console.log('connected sockets ', io.connected);
+        });
+
+        //
+        // socket.on('invite', function (id) {
+        //     socket.broadcast.to(id).emit('invitation', socket.id);
+        // });
+        //
+        // socket.on('join room', function (roomId) {
+        //     console.log('room id from client: ', roomId);
+        //     roomId = '/#' + roomId;
+        //     console.log('socket ' + socket.id + 'wants to join room ' + roomId);
+        //     // io.to(socket.id).emit('fileUpdate', currentFile);
+        //     room = roomId;
+        //     socket.join(roomId);
+        // });
+
     });
 
     return io;

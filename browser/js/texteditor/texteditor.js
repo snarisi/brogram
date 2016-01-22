@@ -1,26 +1,33 @@
 app.config(function ($stateProvider) {
-    $stateProvider.state('edit', {
-        url: '/edit?file',
+    $stateProvider.state('main.edit', {
+        url: 'edit?file?host',
         templateUrl: 'js/texteditor/texteditor.html',
         controller: 'EditorCtrl',
         resolve: {
-            user: function (AuthService) {
-                return AuthService.getLoggedInUser();
-            },
             currentFile: function ($stateParams, File) {
-                if (!$stateParams.file) return;
-                return File.fetchById($stateParams.file);
+                if ($stateParams.file) return File.fetchById($stateParams.file);
+                else if ($stateParams.host) return;
+                else return;
             }
         }
     });
 
 });
 
-app.controller('EditorCtrl', function ($scope, $state, currentFile, user, File, socket) {
-    $scope.currentFile = currentFile || { user: user._id };
+app.controller('EditorCtrl', function ($scope, $state, $stateParams, currentFile, File, socket, loggedInUser) {
+    $scope.currentFile = currentFile || { user: loggedInUser._id };
+
+    if ($stateParams.host) {
+        socket.joinRoom($stateParams.host);
+    }
+
+    socket.trackFile(file => {
+        $scope.currentFile = file
+        $scope.$digest();
+    });
 
     $scope.$watch('currentFile.text', function (newVal, oldVal) {
-        socket.updateFile(newVal);
+        socket.updateFile($scope.currentFile);
     });
 
     $scope.save = function (file) {
@@ -28,7 +35,7 @@ app.controller('EditorCtrl', function ($scope, $state, currentFile, user, File, 
             .then(file => {
                 if (currentFile) return;
                 //redirect if save was called on a new file
-                $state.go('edit', { file: file._id })
+                $state.go('main.edit', { file: file._id })
             })
     }
 });

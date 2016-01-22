@@ -3,7 +3,6 @@ app.directive('rightSidebar', function (socket) {
         restrict: 'E',
         templateUrl: 'js/right-sidebar/right.html',
         link: function (scope, element, attrs) {
-            console.log(scope.users);
 
             scope.expand = function () {
                 if (element.css('right') === '0px') {

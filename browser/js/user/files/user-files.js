@@ -1,12 +1,10 @@
 app.config(function ($stateProvider) {
-    $stateProvider.state('files', {
-        url: '/files',
+    $stateProvider.state('main.files', {
+        url: 'files',
         templateUrl: 'js/user/files/user-files.html',
         resolve: {
-            files: function (AuthService, File) {
-                console.log('in resolve');
-                return AuthService.getLoggedInUser()
-                    .then(user => File.fetchAllByUser(user._id))
+            files: function (loggedInUser, File) {
+                return File.fetchAllByUser(loggedInUser._id);
             }
 
         },

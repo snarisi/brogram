@@ -1,0 +1,18 @@
+<div id="main-view">
+    <invitation
+        ng-show="incomingInvitation"
+        from="incomingInvitation">
+    </invitation>
+
+    <navbar></navbar>
+
+    <left-sidebar
+        user="user">
+    </left-sidebar>
+
+    <div id="main" ui-view></div>
+
+    <right-sidebar
+        users="allUsers">
+    </right-sidebar>
+</div>

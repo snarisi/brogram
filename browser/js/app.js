@@ -50,19 +50,3 @@ app.run(function ($rootScope, AuthService, $state) {
 
 
 });
-
-app.controller('MainCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService, socket) {
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function (e, user) {
-        $scope.user = user;
-        socket.logIn({ username: user.email, id: socket.id });
-    });
-
-    $scope.allUsers = {
-        0: 'none yet'
-    };
-
-    socket.trackUsers(function (users) {
-        $scope.allUsers = users;
-        $scope.$digest();
-    });
-});

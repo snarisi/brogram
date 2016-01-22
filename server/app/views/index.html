@@ -15,15 +15,6 @@
     <script src="/main.js"></script>
 </head>
 <body ng-app="FullstackGeneratedApp">
-    <div id="main-view" ng-controller="MainCtrl">
-        <navbar></navbar>
-        <left-sidebar
-            user="user">
-        </left-sidebar>
-        <div id="main" ui-view></div>
-        <right-sidebar
-            users="allUsers">
-        </right-sidebar>
-    </div>
+    <ui-view></ui-view>
 </body>
 </html>
