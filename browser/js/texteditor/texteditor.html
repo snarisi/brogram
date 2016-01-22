@@ -3,10 +3,17 @@
     <input
         type="text"
         ng-model="currentFile.name">
-    <textarea
+    <div
+        ui-ace="{
+            mode: 'javascript'
+        }"
+        ng-model="currentFile.text"
+        class="ace_editor">
+    </div>
+    <!-- <textarea
         ng-model="currentFile.text"
         id="main-editor-window">
-    </textarea>
+    </textarea> -->
     <button ng-click="save(currentFile)">
         save
     </button>

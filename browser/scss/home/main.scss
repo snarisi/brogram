@@ -1,6 +1,9 @@
 #text-editor-form {
     textarea {
         font-family: 'Courier New';
+    }
+
+    .ace_editor {
         width: 100%;
         height: 300px;
     }
