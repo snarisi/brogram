@@ -8,6 +8,10 @@ const schema = ({
     text: {
         type: String
     },
+    name: {
+        type: String,
+        default: 'untitled'
+    },
     extension: {
         type: String,
         default: '.js'

@@ -13,6 +13,8 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('MainCtrl', function ($scope, user) {
+    $scope.user = user;
+    
     $scope.currentFile = {
         user: user._id
     };

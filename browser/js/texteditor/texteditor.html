@@ -1,5 +1,11 @@
 <div id="text-editor-form">
-    <main-text-editor-window></main-text-editor-window>
+    <input
+        type="text"
+        ng-model="currentFile.name">
+    <textarea
+        ng-model="currentFile.text"
+        id="main-editor-window">
+    </textarea>
     <div ng-click="save(currentFile)">
         save
     </div>

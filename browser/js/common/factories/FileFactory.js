@@ -12,5 +12,14 @@ app.factory('File', function ($http) {
             .then(res => res.data)
         },
 
+        fetchAllByUser: function (userId) {
+            return $http.get('/api/files/ownedby/' + userId)
+                .then(res => res.data);
+        },
+
+        fetchById: function (fileId) {
+            return $http.get('/api/files/' + fileId)
+                .then(res => res.data);
+        }
     }
 });

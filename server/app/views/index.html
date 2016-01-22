@@ -17,7 +17,11 @@
 <body ng-app="FullstackGeneratedApp">
     <div id="main-view">
         <navbar></navbar>
+        <left-sidebar
+            user="user">
+        </left-sidebar>
         <div id="main" ui-view></div>
+        <right-sidebar></right-sidebar>
     </div>
 </body>
 </html>
