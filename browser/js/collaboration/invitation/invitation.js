@@ -9,13 +9,11 @@ app.directive('invitation', function ($state) {
             let host,
                 file;
 
-            console.log(scope.invitation);
-
             scope.accept = function () {
-                host = scope.invitation.host.slice(2);
-                file = scope.invitation.file;
+                const hostId = scope.invitation.host._id;
+                const file = scope.invitation.file;
                 scope.invitation = null;
-                $state.go('main.edit', { host: host, file: null, currentFile: file });
+                $state.go('main.edit', { host: hostId, file: null, currentFile: file });
             };
 
             scope.reject = function () {

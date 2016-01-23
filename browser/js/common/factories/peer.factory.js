@@ -13,21 +13,43 @@ app.factory('peer', function ($rootScope, $http) {
                      host: 'localhost',
                      port: 8080,
                      path: '/api/peer',
-                     metadata: { username: host.email }
+                 });
+
+                 // listen for incoming requests
+                 peer.on('connection', function (conn) {
+
+                     $rootScope.$broadcast('invitation received', conn.metadata);
+
+                     conn.on('data', function (data) {
+                         console.log('received: ', data);
+                         $rootScope.$broadcast('data received', data);
+                     });
+
+                     $rootScope.$on('invitation accepted', function () {
+
+                         conn.on('data', function (data) {
+                             console.log('received: ', data);
+                             $rootScope.$broadcast('data received', data);
+                         });
+
+                     });
+
+                     $rootScope.$on('send data', function (e, data) {
+                         conn.send(data);
+                     });
                  });
         },
 
-        startConnection: function (guestId, file) {
-            conn = peer.connect(guestId);
+        startConnection: function (guestId, host, file) {
+            conn = peer.connect(guestId, { metadata: { host: host, file: file } });
             conn.on('open', function () {
 
-                // send peer the current file
-                if (file) conn.send(file);
-
+                // listen for data from guest
                 conn.on('data', function (data) {
                     $rootScope.$broadcast('data received', data);
                 });
 
+                // send data to guest
                 $rootScope.$on('send data', function (e, data) {
                     conn.send(data);
                 });
@@ -35,16 +57,12 @@ app.factory('peer', function ($rootScope, $http) {
             })
         },
 
-        listenForConnections: function () {
-            peer.on('connection', function (conn) {
-                conn.on('data', function (data) {
-                    $rootScope.$broadcast('data received', data);
-                });
+        onInvitation: function (callback) {
+            $rootScope.$on('invitation received', (e, invitation) => callback(invitation));
+        },
 
-                $rootScope.$on('send data', function (e, data) {
-                    conn.send(data);
-                });
-            });
+        acceptInvitation: function () {
+            $rootScope.$broadcast('invitation accepted')
         },
 
         sendData: function (data) {

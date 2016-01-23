@@ -4,12 +4,14 @@ app.directive('connectedPeers', function (peer) {
         templateUrl: 'js/peers/peers.html',
         scope: {
             peers: '=',
+            host: '=',
             file: '='
         },
         link: function (scope, element, attrs) {
-            scope.invite = function (guestId) {
-                console.log(guestId);
-                peer.startConnection(guestId, scope.file);
+            console.log(scope.host);
+            scope.invite = function (guestId, host) {
+                console.log(host);
+                peer.startConnection(guestId, host, scope.file);
             }
         }
     }

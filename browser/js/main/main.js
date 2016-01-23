@@ -21,7 +21,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, p
 
     peer.creatPeer($scope.user);
     peer.getConnectPeers(peers => $scope.connectedPeers = peers);
-    peer.listenForConnections();
+    peer.onInvitation(invitation => {
+        console.log('invitation: ', invitation)
+        $scope.incomingInvitation = invitation;
+        $scope.$digest();
+    });
 
     $scope.allUsers = {
         0: 'none yet'
@@ -31,10 +35,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, p
         $scope.allUsers = users;
         $scope.$digest();
     });
-
-    socket.listenForInvites(function (invitation) {
-        $scope.incomingInvitation = invitation;
-        console.log(invitation);
-        $scope.$digest();
-    });
+    //
+    // socket.listenForInvites(function (invitation) {
+    //     $scope.incomingInvitation = invitation;
+    //     console.log(invitation);
+    //     $scope.$digest();
+    // });
 });

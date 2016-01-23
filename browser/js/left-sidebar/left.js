@@ -3,6 +3,7 @@ app.directive('leftSidebar', function () {
         restrict: 'E',
         scope: {
             peers: '=',
+            user: '=',
             file: '='
         },
         templateUrl: 'js/left-sidebar/left.html',

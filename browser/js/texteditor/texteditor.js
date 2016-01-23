@@ -17,18 +17,15 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams, currentFile, File, socket, loggedInUser, peer) {
+app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams, currentFile, File, loggedInUser, peer) {
     $rootScope.currentFile = currentFile || { user: loggedInUser._id };
 
+    // accept invitation from the host
     if ($stateParams.host) {
-        socket.joinRoom($stateParams.host);
+        peer.acceptInvitation($stateParams.host);
     }
 
-    socket.trackFile(file => {
-        $rootScope.currentFile = file
-        $scope.$digest();
-    });
-
+    // listen to data transmission from peer
     peer.onData(data => {
         $rootScope.currentFile = data;
         $scope.$digest();
@@ -37,12 +34,6 @@ app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams,
     $scope.typeHandler = function ($event) {
         peer.sendData($rootScope.currentFile);
     }
-
-    // $scope.$watch('currentFile.text', function (newVal, oldVal) {
-    //     if (!newVal || newVal === oldVal) return;
-    //     socket.updateFile($rootScope.currentFile);
-    //     peer.sendData($rootScope.currentFile);
-    // });
 
     $scope.save = function (file) {
         File.save(file)
