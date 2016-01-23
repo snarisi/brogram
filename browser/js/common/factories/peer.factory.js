@@ -10,7 +10,7 @@ app.factory('peer', function ($rootScope, $http) {
             peer = peer || new Peer(
                 host._id,
                 {
-                     host: 'localhost',
+                     host: window.location.hostname,
                      port: 8080,
                      path: '/api/peer',
                  });
