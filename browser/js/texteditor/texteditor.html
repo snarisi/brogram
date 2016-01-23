@@ -5,9 +5,11 @@
         ng-model="currentFile.name">
     <div
         ui-ace="{
-            mode: 'javascript'
+            mode: 'javascript',
+            $blockScrolling: Infinity
         }"
         ng-model="currentFile.text"
+        ng-keyup="typeHandler($event)"
         class="ace_editor">
     </div>
     <!-- <textarea

@@ -17,17 +17,18 @@ app.factory('peer', function ($rootScope, $http) {
                  });
         },
 
-        startConnection: function (guestId) {
+        startConnection: function (guestId, file) {
             conn = peer.connect(guestId);
             conn.on('open', function () {
-                console.log('open: ', conn);  
+
+                // send peer the current file
+                if (file) conn.send(file);
 
                 conn.on('data', function (data) {
-                    $rootScope.$broadcast('new data', data);
-                    console.log('Received ', data);
+                    $rootScope.$broadcast('data received', data);
                 });
 
-                $rootScope.$on('send data', function (data) {
+                $rootScope.$on('send data', function (e, data) {
                     conn.send(data);
                 });
 
@@ -36,12 +37,24 @@ app.factory('peer', function ($rootScope, $http) {
 
         listenForConnections: function () {
             peer.on('connection', function (conn) {
-                console.log(conn);
-            })
+                conn.on('data', function (data) {
+                    $rootScope.$broadcast('data received', data);
+                });
+
+                $rootScope.$on('send data', function (e, data) {
+                    conn.send(data);
+                });
+            });
         },
 
         sendData: function (data) {
             $rootScope.$broadcast('send data', data);
+        },
+
+        onData: function (callback) {
+            $rootScope.$on('data received', function (e, data) {
+                callback(data);
+            })
         },
 
         getConnectPeers: function (callback) {

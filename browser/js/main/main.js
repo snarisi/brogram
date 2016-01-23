@@ -18,7 +18,6 @@ app.config(function ($stateProvider) {
 app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, peer) {
     $scope.user = loggedInUser;
     $scope.incomingInvitation = null;
-    $scope.connectedPeers = 'big booty bitches';
 
     peer.creatPeer($scope.user);
     peer.getConnectPeers(peers => $scope.connectedPeers = peers);

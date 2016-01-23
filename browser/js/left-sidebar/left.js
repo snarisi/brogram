@@ -2,7 +2,8 @@ app.directive('leftSidebar', function () {
     return {
         restrict: 'E',
         scope: {
-            peers: '='
+            peers: '=',
+            file: '='
         },
         templateUrl: 'js/left-sidebar/left.html',
         link: function (scope, element, attrs) {

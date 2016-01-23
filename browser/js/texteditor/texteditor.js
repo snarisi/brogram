@@ -17,22 +17,32 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('EditorCtrl', function ($scope, $state, $stateParams, currentFile, File, socket, loggedInUser) {
-    $scope.currentFile = currentFile || { user: loggedInUser._id };
+app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams, currentFile, File, socket, loggedInUser, peer) {
+    $rootScope.currentFile = currentFile || { user: loggedInUser._id };
 
     if ($stateParams.host) {
         socket.joinRoom($stateParams.host);
     }
 
     socket.trackFile(file => {
-        $scope.currentFile = file
+        $rootScope.currentFile = file
         $scope.$digest();
     });
 
-    $scope.$watch('currentFile.text', function (newVal, oldVal) {
-        if (!newVal) return;
-        socket.updateFile($scope.currentFile);
+    peer.onData(data => {
+        $rootScope.currentFile = data;
+        $scope.$digest();
     });
+
+    $scope.typeHandler = function ($event) {
+        peer.sendData($rootScope.currentFile);
+    }
+
+    // $scope.$watch('currentFile.text', function (newVal, oldVal) {
+    //     if (!newVal || newVal === oldVal) return;
+    //     socket.updateFile($rootScope.currentFile);
+    //     peer.sendData($rootScope.currentFile);
+    // });
 
     $scope.save = function (file) {
         File.save(file)
