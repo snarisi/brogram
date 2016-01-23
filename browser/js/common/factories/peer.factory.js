@@ -2,7 +2,11 @@ app.factory('peer', function ($rootScope, $http) {
     let peer,
         conn;
 
-    console.log(peer);
+    // compitability check
+    navigator.getUserMedia = navigator.getUserMedia ||
+                             navigator.webkitGetUserMedia ||
+                             navigator.mozGetUserMedia;
+
 
     return {
         creatPeer: function (host) {
@@ -27,6 +31,7 @@ app.factory('peer', function ($rootScope, $http) {
 
                      $rootScope.$on('invitation accepted', function () {
 
+                         // accept incoming data after invitation is accepted
                          conn.on('data', function (data) {
                              console.log('received: ', data);
                              $rootScope.$broadcast('data received', data);
@@ -43,7 +48,7 @@ app.factory('peer', function ($rootScope, $http) {
         startConnection: function (guestId, host, file) {
             conn = peer.connect(guestId, { metadata: { host: host, file: file } });
             conn.on('open', function () {
-
+                $rootScope.$broadcast('guest connected', guestId)
                 // listen for data from guest
                 conn.on('data', function (data) {
                     $rootScope.$broadcast('data received', data);
@@ -87,6 +92,26 @@ app.factory('peer', function ($rootScope, $http) {
                 })
                 .then(res => callback(res.data))
             })
+        },
+
+        onGuestConnect: function (callback) {
+            $rootScope.$on('guest connected', function (e, data) {
+                callback(data);
+            });
+        },
+
+        startVideoChat: function (guestId, stream, callback) {
+            const call = peer.call(guestId, stream);
+            callback(call);
+        },
+
+        answerVideo: function (stream, callback) {
+            console.log(stream);
+            peer.on('call', function (call) {
+                console.log(call);
+                call.answer(stream);
+                callback(call);
+            });
         }
     }
 })

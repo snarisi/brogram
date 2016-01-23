@@ -20,4 +20,40 @@
         save
     </button>
 
+    <div id="bottom-panel">
+        <button
+            ng-click="activePanel = 'console'">
+            Console
+        </button>
+        <button
+            ng-click="activePanel = 'video'">
+            Video
+        </button>
+        <button
+            ng-click="activePanel = 'whiteboard'">
+            Whiteboard
+        </button>
+
+        <div
+            id="console"
+            ng-show="activePanel === 'console'">
+            CONSOLE
+        </div>
+
+        <div
+            id="whiteboard"
+            ng-show="activePanel === 'whiteboard'">
+            WHITEBOARD
+        </div>
+
+        <video
+            video-chat
+            ng-show="activePanel === 'video'"
+            id="video-element"
+            ng-click="startVideoChat(guestId)">
+            TEXT AND SHIT
+        </video>
+
+    </div>
+
 </div>

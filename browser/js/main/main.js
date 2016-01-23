@@ -18,12 +18,17 @@ app.config(function ($stateProvider) {
 app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, peer) {
     $scope.user = loggedInUser;
     $scope.incomingInvitation = null;
+    $scope.guestId = null;
 
     peer.creatPeer($scope.user);
     peer.getConnectPeers(peers => $scope.connectedPeers = peers);
     peer.onInvitation(invitation => {
         console.log('invitation: ', invitation)
         $scope.incomingInvitation = invitation;
+        $scope.$digest();
+    });
+    peer.onGuestConnect(guestId => {
+        $scope.guestId = guestId;
         $scope.$digest();
     });
 
