@@ -20,6 +20,10 @@
         save
     </button>
 
+    <button ng-click="runCode()">
+        run
+    </button>
+
     <div id="bottom-panel">
         <button
             ng-click="activePanel = 'console'">
@@ -37,7 +41,7 @@
         <div
             id="console"
             ng-show="activePanel === 'console'">
-            CONSOLE
+            <console current-file="currentFile"></console>
         </div>
 
         <div
