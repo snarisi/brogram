@@ -1,7 +1,10 @@
 'use strict';
 var path = require('path');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
+var PeerServer = require('peer').PeerServer;
 var express = require('express');
 var app = express();
+
 module.exports = app;
 
 //socket.io setup
@@ -13,7 +16,6 @@ require('./configure')(app);
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
-
 
 /*
  This middleware will catch any URLs resembling a file extension

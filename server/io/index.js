@@ -28,6 +28,7 @@ module.exports = function (server) {
             socket.broadcast.to(room).emit('other user typing', newFile);
         });
 
+        // TODO send the file here
         socket.on('send invite', function (userToInvite) {
             room = socket.id;
             socket.join(room);

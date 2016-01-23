@@ -1,4 +1,4 @@
-app.directive('rightSidebar', function (socket) {
+app.directive('rightSidebar', function (socket, peer) {
     return {
         restrict: 'E',
         templateUrl: 'js/right-sidebar/right.html',
@@ -12,7 +12,7 @@ app.directive('rightSidebar', function (socket) {
                 }
             }
 
-            scope.invite = function (id) {
+            scope.invite = function (id, userId) {
                 socket.invite(id);
             }
 
