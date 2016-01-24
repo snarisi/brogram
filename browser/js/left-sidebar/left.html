@@ -2,15 +2,46 @@
     <div
         id="expand-right"
         ng-click="expand()">
-        expand
+        <span
+            class="glyphicon glyphicon-menu-right"
+            ng-class="{ rotated: expanded }">
+        </span>
     </div>
-    <div><a ui-sref="main.files">My Files</a></div>
-    <div><a ui-sref="main.edit({ file: null })">New File</a></div>
-    <div ng-click="toggleVideo()">Enable video</div>
-    <div>Available Bros</div>
-    <connected-peers
-        peers="peers"
-        host="user"
-        file="file">
-    </connected-peers>
+    <div>
+        <div ng-click="toggleFiles()">
+            <span>My Files</span>
+            <span class="glyphicon glyphicon-list"></span>
+        </div>
+        <div class="list-container" ng-class="{ expandeddown: showFiles }">
+            <filelist
+                user="user">
+            </filelist>
+        </div>
+    </div>
+    <div ng-click="toggleVideo()">
+        <span><span>Enable</span><span ng-show="false">Disable</span> video</span>
+        <span
+            class="glyphicon glyphicon-facetime-video"
+            ng-class="{ primary: videoOn }">
+        </span>
+    </div>
+    <div>
+        <div ng-click="togglePeers()">
+            <span>Available Bros</span>
+            <span class="glyphicon glyphicon-user"></span>
+        </div>
+        <div class="list-container" ng-class="{ expandeddown: showPeers }">
+            <connected-peers
+                peers="peers"
+                host="user"
+                file="file">
+            </connected-peers>
+        </div>
+    </div>
+    <div>
+        <div ng-click="logout()">
+            <span>Logout</span>
+            <span class="glyphicon glyphicon-log-out"></span>
+        </div>
+    </div>
 </div>

@@ -1,8 +1,9 @@
 left-sidebar {
-    background-color: black;
+    background-color: $white;
     position: absolute;
-    padding-top: 50px;
+    padding: 20px 10px 0 0;
     left: -150px;
+    top: 0;
     color: red;
     height: 100vh;
     width: 200px;
@@ -15,4 +16,58 @@ left-sidebar {
 
     #left-menu {
     }
+
+    span {
+        margin: 10px 0 10px 10px;
+        font-family: $title-font;
+        color: $accent;
+        vertical-align: middle;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    span.glyphicon {
+        font-size: 30px;
+        color: $light;
+    }
+
+    #expand-right span {
+        -webkit-transition: transform 0.5s;
+        transition: transform 0.5s;
+        color: $accent;
+    }
+
+}
+
+.rotated {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+ul {
+    list-style: none;
+
+    span {
+        font-family: $text-font;
+
+    }
+}
+
+
+hr {
+    margin: 4px 0 8px 0;
+}
+
+.list-container {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.4s;
+    -webkit-transition: max-height 0.4s;
+
+    &.expandeddown {
+        max-height: 200px;
+        overflow: scroll;
+    }
+
 }

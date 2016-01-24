@@ -1,0 +1,14 @@
+<ul>
+    <a ui-sref="main.edit({ file: null })">
+        <li>
+            <hr>
+            <span class="accent">New File</span>
+        </li>
+    </a>
+    <a ng-repeat="file in files" ui-sref="main.edit({ file: file._id })">
+        <li>
+            <hr>
+            <span>{{file.name}}</span>
+        </li>
+    </a>
+</ul>

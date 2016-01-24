@@ -4,18 +4,15 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/main/main.html',
         controller: 'MainCtrl',
         resolve: {
-            loggedInUser: function (AuthService, socket) {
-                return AuthService.getLoggedInUser()
-                    .then(user => {
-                        socket.logIn({ username: user.email, id: socket.id });
-                        return user;
-                    })
+            loggedInUser: function (AuthService) {
+                return AuthService.getLoggedInUser();
             }
         }
     });
 })
 
 app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, peer) {
+    console.log('loggedInUser', loggedInUser)
     $scope.user = loggedInUser;
     $scope.incomingInvitation = null;
     $scope.guestId = null;
