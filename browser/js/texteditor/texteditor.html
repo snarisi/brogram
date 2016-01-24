@@ -3,6 +3,12 @@
     <input
         type="text"
         ng-model="currentFile.name">
+    <button
+        ng-click="save(currentFile)"
+        class="btn save-button">
+        save
+    </button>
+
     <div
         ui-ace="{
             mode: 'javascript',
@@ -10,19 +16,9 @@
         }"
         ng-model="currentFile.text"
         ng-keyup="typeHandler($event)"
+        ng-keypress="keySave($event, currentFile)"
         class="ace_editor">
     </div>
-    <!-- <textarea
-        ng-model="currentFile.text"
-        id="main-editor-window">
-    </textarea> -->
-    <button ng-click="save(currentFile)">
-        save
-    </button>
-
-    <button ng-click="runCode()">
-        run
-    </button>
 
     <div id="bottom-panel">
         <button

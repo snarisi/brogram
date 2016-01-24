@@ -1,0 +1,29 @@
+#text-editor-form {
+    textarea {
+        font-family: 'Courier New';
+    }
+
+    .ace_editor {
+        width: 100%;
+        height: 300px;
+        margin-top: 8px;
+        font-family: $mono-font;
+        font-size: 14px;
+    }
+
+    video {
+        background-color: white;
+        height: 200px;
+        width: 100%;
+    }
+
+    .save-button {
+        background-color: $light;
+        margin-top: 0;
+        padding: 4px 0;
+    }
+
+    input {
+        height: 30px;
+    }
+}

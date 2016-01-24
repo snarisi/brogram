@@ -2,8 +2,11 @@ invitation {
     #invitation {
         width: 300px;
         height: 200px;
-        background-color: black;
-        color: white;
+        background-color: #111;
+        border-radius: 10px;
+        color: $white;
+        text-align: center;
+        padding: 10px;
         position: absolute;
         top: 200px;
         left: 0;
@@ -12,8 +15,26 @@ invitation {
         z-index: 9;
 
         #buttons {
-            margin-top: 50px;
+            margin-top: 10px;
             text-align: center;
         }
+
+        .yes-button {
+            background-color: $light;
+        }
+        .no-button {
+            background-color: $accent;
+        }
+
+        p.from {
+            font-family: $text-font;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        p.message {
+            font-family: $title-font;
+            font-size: 30px;
+        }
+
     }
 }

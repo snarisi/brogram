@@ -1,15 +1,15 @@
 <div id="invitation">
-    <h3>{{invitation.host.email}} says:</h3>
-    <h3>Yo. You tryna code?</h3>
+    <p class="from">{{invitation.host.email}} says:</p>
+    <p class="message">Yo. You tryna code?</p>
     <div id="buttons">
         <button
             ng-click="accept()"
-            class="btn btn-primary">
+            class="btn yes-button">
             Uh-huh
         </button>
         <button
             ng-click="reject()"
-            class="btn btn-danger">
+            class="btn no-button">
             Nuh-uh
         </button>
     </div>

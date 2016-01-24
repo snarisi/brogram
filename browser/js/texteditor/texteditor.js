@@ -44,4 +44,10 @@ app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams,
                 $state.go('main.edit', { file: file._id })
             })
     };
+
+    $scope.keySave = function ($event, file) {
+        if ($event.ctrlKey && $event.which === 19) {
+            $scope.save(file);
+        }
+    }
 });
