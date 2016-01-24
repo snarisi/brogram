@@ -21,15 +21,15 @@ app.directive('videoChat', function (peer) {
                 }, err => console.error(err));
             };
 
-            navigator.getUserMedia({ audio: true, video: true }, myStream => {
-
-                peer.answerVideo(myStream, call => {
-                    call.on('stream', stream => {
-                        const source = URL.createObjectURL(stream);
-                        element.prop('src', source);
-                    })
-                });
-            }, err => console.error(err))
+            // navigator.getUserMedia({ audio: true, video: true }, myStream => {
+            //
+            //     peer.answerVideo(myStream, call => {
+            //         call.on('stream', stream => {
+            //             const source = URL.createObjectURL(stream);
+            //             element.prop('src', source);
+            //         })
+            //     });
+            // }, err => console.error(err))
         }
     }
 });

@@ -25,16 +25,16 @@ app.factory('peer', function ($rootScope, $http) {
                      $rootScope.$broadcast('invitation received', conn.metadata);
 
                      conn.on('data', function (data) {
-                         console.log('received: ', data);
-                         $rootScope.$broadcast('data received', data);
+                         if (data.drawing) $rootScope.$broadcast('drawing received', data.drawing);
+                         else $rootScope.$broadcast('data received', data);
                      });
 
                      $rootScope.$on('invitation accepted', function () {
 
                          // accept incoming data after invitation is accepted
                          conn.on('data', function (data) {
-                             console.log('received: ', data);
-                             $rootScope.$broadcast('data received', data);
+                             if (data.drawing) $rootScope.$broadcast('drawing received', data.drawing);
+                             else $rootScope.$broadcast('data received', data);
                          });
 
                      });
@@ -42,6 +42,7 @@ app.factory('peer', function ($rootScope, $http) {
                      $rootScope.$on('send data', function (e, data) {
                          conn.send(data);
                      });
+
                  });
         },
 
@@ -51,7 +52,8 @@ app.factory('peer', function ($rootScope, $http) {
                 $rootScope.$broadcast('guest connected', guestId)
                 // listen for data from guest
                 conn.on('data', function (data) {
-                    $rootScope.$broadcast('data received', data);
+                    if (data.drawing) $rootScope.$broadcast('drawing received', data.drawing);
+                    else $rootScope.$broadcast('data received', data);
                 });
 
                 // send data to guest
@@ -59,6 +61,15 @@ app.factory('peer', function ($rootScope, $http) {
                     conn.send(data);
                 });
 
+                $rootScope.$on('send drawing', function (e, start, end, color) {
+                    conn.send({
+                        drawing: {
+                            start: start,
+                            end: end,
+                            color: color
+                        }
+                    })
+                });
             })
         },
 
@@ -112,6 +123,16 @@ app.factory('peer', function ($rootScope, $http) {
                 call.answer(stream);
                 callback(call);
             });
+        },
+
+        sendDrawing: function (start, end, color ) {
+            $rootScope.$broadcast('send drawing', start, end, color);
+        },
+
+        getDrawing: function (callback) {
+            $rootScope.$on('drawing received', function (e, drawing) {
+                callback(drawing.start, drawing.end, drawing.color);
+            })
         }
     }
 })
