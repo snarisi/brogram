@@ -1,6 +1,8 @@
 app.factory('peer', function ($rootScope, $http) {
     let peer,
-        conn;
+        conn,
+        hostCall,
+        guestCall;
 
     // compitability check
     navigator.getUserMedia = navigator.getUserMedia ||
@@ -113,15 +115,23 @@ app.factory('peer', function ($rootScope, $http) {
 
         startVideoChat: function (guestId, stream, callback) {
             const call = peer.call(guestId, stream);
+            call.on('end', () => $rootScope.$broadcast('call ended'));
+            $rootScope.$on('end call', () => call.close());
             callback(call);
         },
 
-        answerVideo: function (stream, callback) {
-            console.log(stream);
+        endCall: function () {
+            $rootScope.$broadcast('end call');
+        },
+
+        answerVideo: function (callback) {
             peer.on('call', function (call) {
-                console.log(call);
-                call.answer(stream);
-                callback(call);
+                navigator.getUserMedia({ audio: true, video: true }, guestStream => {
+                    call.answer(guestStream);
+                    callback(call);
+                    call.on('end', () => $rootScope.$broadcast('call ended'));
+                    $rootScope.$on('end call', () => call.close());
+                }, err => console.error(err));
             });
         },
 
@@ -132,7 +142,11 @@ app.factory('peer', function ($rootScope, $http) {
         getDrawing: function (callback) {
             $rootScope.$on('drawing received', function (e, drawing) {
                 callback(drawing.start, drawing.end, drawing.color);
-            })
+            });
+        },
+
+        onEnd: function (callback) {
+            $rootScope.$on('call ended', () => callback());
         }
     }
 })

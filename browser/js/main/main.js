@@ -40,6 +40,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, p
         $scope.allUsers = users;
         $scope.$digest();
     });
+
+
     //
     // socket.listenForInvites(function (invitation) {
     //     $scope.incomingInvitation = invitation;

@@ -1,4 +1,4 @@
-app.directive('videoChat', function (peer) {
+app.directive('videoChat', function (peer, $rootScope, $state) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -7,10 +7,11 @@ app.directive('videoChat', function (peer) {
                                      navigator.webkitGetUserMedia ||
                                      navigator.mozGetUserMedia;
 
-            scope.startVideoChat = function (guestId) {
-                console.log('starting video chat i guess');
+            $rootScope.$on('video on', function () {
                 navigator.getUserMedia({ audio: true, video: true }, hostStream => {
-                    peer.startVideoChat(guestId, hostStream, call => {
+                    console.log(hostStream);
+                    $rootScope.$on('video off', () => hostStream.getTracks()[0].stop());
+                    peer.startVideoChat(scope.guestId, hostStream, call => {
                         console.log(call);
                         call.on('stream', stream => {
                             const source = URL.createObjectURL(stream);
@@ -19,17 +20,21 @@ app.directive('videoChat', function (peer) {
 
                     });
                 }, err => console.error(err));
-            };
+            });
 
-            // navigator.getUserMedia({ audio: true, video: true }, myStream => {
-            //
-            //     peer.answerVideo(myStream, call => {
-            //         call.on('stream', stream => {
-            //             const source = URL.createObjectURL(stream);
-            //             element.prop('src', source);
-            //         })
-            //     });
-            // }, err => console.error(err))
+            $rootScope.$on('video off', function () {
+                peer.endCall();
+            });
+
+
+            peer.answerVideo(call => {
+                console.log(call);
+                call.on('stream', stream => {
+                    const source = URL.createObjectURL(stream);
+                    element.prop('src', source);
+                })
+            });
+
         }
     }
 });
