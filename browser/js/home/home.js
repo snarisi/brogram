@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('home', {
-        url: '/home',
+        url: '/',
         templateUrl: 'js/home/home.html',
         resolve: {
             user: function (AuthService) {
@@ -13,5 +13,5 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, user) {
     $scope.user = user;
-    
+
 })

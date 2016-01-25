@@ -11,17 +11,15 @@ app.directive('videoChat', function (peer, $rootScope, $state) {
                 audio: true,
                 video: {
                     mandatory: {
-                        maxHeight: 200
+                        maxHeight: 200,
                     }
                 },
             }
 
             $rootScope.$on('video on', function () {
                 navigator.getUserMedia(constraints, hostStream => {
-                    console.log(hostStream);
                     $rootScope.$on('video off', () => hostStream.getTracks()[0].stop());
                     peer.startVideoChat(scope.guestId, hostStream, call => {
-                        console.log(call);
                         call.on('stream', stream => {
                             const source = URL.createObjectURL(stream);
                             element.prop('src', source);
@@ -34,10 +32,17 @@ app.directive('videoChat', function (peer, $rootScope, $state) {
             $rootScope.$on('video off', function () {
                 peer.endCall();
             });
-
-
+            //
+            // navigator.getUserMedia(constraints, myStream => {
+            //     peer.answerVideo(myStream, function (call) {
+            //         call.on('stream', function (stream) {
+            //             const source = URL.createObjectURL(stream);
+            //             element.prop('src', source);
+            //         });
+            //     });
+            // }, err => console.error(err));
+            //
             peer.answerVideo(call => {
-                console.log(call);
                 call.on('stream', stream => {
                     const source = URL.createObjectURL(stream);
                     element.prop('src', source);

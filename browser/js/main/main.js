@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('main', {
-        url: '/',
+        url: '/main/',
         templateUrl: 'js/main/main.html',
         controller: 'MainCtrl',
         resolve: {
@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 })
 
-app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, peer) {
+app.controller('MainCtrl', function ($scope, $rootScope, loggedInUser, peer) {
     console.log('loggedInUser', loggedInUser)
     $scope.user = loggedInUser;
     $scope.incomingInvitation = null;
@@ -32,17 +32,4 @@ app.controller('MainCtrl', function ($scope, $rootScope, socket, loggedInUser, p
     $scope.allUsers = {
         0: 'none yet'
     };
-
-    socket.trackUsers(function (users) {
-        $scope.allUsers = users;
-        $scope.$digest();
-    });
-
-
-    //
-    // socket.listenForInvites(function (invitation) {
-    //     $scope.incomingInvitation = invitation;
-    //     console.log(invitation);
-    //     $scope.$digest();
-    // });
 });

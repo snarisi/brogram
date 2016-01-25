@@ -62,7 +62,7 @@
         }
     }
 
-    #console, #whiteboard, #video {
+    #console, #whiteboard, #video-panel {
         background-color: $white;
         height: 31vh;
     }
@@ -74,6 +74,7 @@
     iframe {
         border: none;
         height: 26vh;
+        width: 100%;
     }
 
     #console-button {
@@ -82,10 +83,11 @@
         bottom: 3px;
         margin: 0;
         padding: 0;
+        border-radius: 0px;
     }
-
-    #video-element {
-        height: 200px;
-    }
+    //
+    // #video-element {
+    //     height: 200px;
+    // }
 
 }

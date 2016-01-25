@@ -44,7 +44,7 @@ app.directive('whiteboard', function (peer) {
             const draw = function (start, end, color) {
                 if (!start && !end) return scope.clearWhiteboard();
 
-                ctx.lineWidth = scope.color === 'white' ? 15 : 5;
+                ctx.lineWidth = color === 'white' ? 15 : 5;
                 ctx.beginPath();
                 ctx.strokeStyle = color || 'black';
                 ctx.moveTo(start.x, start.y);

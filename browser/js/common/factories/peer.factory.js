@@ -13,7 +13,7 @@ app.factory('peer', function ($rootScope, $http) {
      audio: true,
      video: {
          mandatory: {
-             maxHeight: 200
+             maxHeight: 200,
          }
      },
     }
@@ -150,6 +150,15 @@ app.factory('peer', function ($rootScope, $http) {
                     $rootScope.$on('end call', () => call.close());
                 }, err => console.error(err));
             });
+            //
+            // peer.on('call', function (call) {
+            //     console.log(guestStream);
+            //     call.answer(guestStream);
+            //     callback(call);
+            //     call.on('end', () => $rootScope.$broadcast('call ended'));
+            //     $rootScope.$on('end call', () => call.close());
+            // });
+
         },
 
         sendDrawing: function (start, end, color ) {
