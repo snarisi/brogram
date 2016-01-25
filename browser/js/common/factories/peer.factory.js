@@ -45,6 +45,15 @@ app.factory('peer', function ($rootScope, $http) {
                          conn.send(data);
                      });
 
+                     $rootScope.$on('send drawing', function (e, start, end, color) {
+                         conn.send({
+                             drawing: {
+                                 start: start,
+                                 end: end,
+                                 color: color
+                             }
+                         })
+                     });
                  });
         },
 
