@@ -36,7 +36,11 @@ app.directive('leftSidebar', function ($rootScope, $state, AuthService) {
                 if (scope.expanded) scope.expand();
                 if (scope.showFiles) scope.showFiles = false;
                 if (scope.showPeers) scope.showPeers = false;
-            })
+            });
+
+            $rootScope.$on('collapse sidebar', function () {
+                if (scope.expanded) scope.expand();
+            });
 
             scope.logout = function () {
                 AuthService.logout().then(function () {

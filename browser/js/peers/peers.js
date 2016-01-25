@@ -1,4 +1,4 @@
-app.directive('connectedPeers', function (peer) {
+app.directive('connectedPeers', function (peer, $rootScope) {
     return {
         restrict: 'E',
         templateUrl: 'js/peers/peers.html',
@@ -10,6 +10,7 @@ app.directive('connectedPeers', function (peer) {
         link: function (scope, element, attrs) {
             scope.invite = function (guestId, host) {
                 peer.startConnection(guestId, host, scope.file);
+                $rootScope.$broadcast('collapse sidebar');
             }
         }
     }
