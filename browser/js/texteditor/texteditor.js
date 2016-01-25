@@ -20,6 +20,7 @@ app.config(function ($stateProvider) {
 app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams, currentFile, File, loggedInUser, peer) {
     $rootScope.currentFile = currentFile || { user: loggedInUser._id };
     $scope.videoOn = false;
+    $scope.activePanel = 'console';
 
     // accept invitation from the host
     if ($stateParams.host) {
@@ -46,6 +47,9 @@ app.controller('EditorCtrl', function ($scope, $rootScope, $state, $stateParams,
     };
 
     $scope.keySave = function ($event, file) {
+        if ($event.ctrlKey) {
+            $event.preventDefault();
+        }
         if ($event.ctrlKey && $event.which === 19) {
             $scope.save(file);
         }

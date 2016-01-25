@@ -8,7 +8,7 @@ app.directive('console', function () {
         link: function (scope, element, attrs) {
             scope.runCode = function (code) {
                 console.log(code);
-                code = code.replace(/console.log/gm, 'document.writeln("<pre>"); document.writeln');
+                code = code.replace(/console.log/gm, 'document.writeln("<pre>"); document.write(">> "); document.writeln');
                 console.log(code);
                 const script = '<script>' + code + '</script>';
                 element.find('iframe').prop('srcdoc', script);

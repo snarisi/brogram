@@ -9,6 +9,8 @@ left-sidebar {
     width: 200px;
     text-align: right;
     z-index: 10;
+    -webkit-transition: left 0.5s;
+    transition: left 0.5s;
 
     #expand-left {
         width: 100%;
@@ -67,7 +69,6 @@ hr {
 
     &.expandeddown {
         max-height: 200px;
-        overflow: scroll;
     }
 
 }

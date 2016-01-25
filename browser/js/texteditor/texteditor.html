@@ -1,36 +1,44 @@
-<div id="text-editor-form">
+<div id="main-editor-view">
+    <div id="text-editor-form">
 
-    <input
-        type="text"
-        ng-model="currentFile.name">
-    <button
-        ng-click="save(currentFile)"
-        class="btn save-button">
-        save
-    </button>
+        <input
+            type="text"
+            ng-model="currentFile.name">
+        <button
+            ng-click="save(currentFile)"
+            class="btn save-button">
+            save
+        </button>
 
-    <div
-        ui-ace="{
-            mode: 'javascript',
-            $blockScrolling: Infinity
-        }"
-        ng-model="currentFile.text"
-        ng-keyup="typeHandler($event)"
-        ng-keypress="keySave($event, currentFile)"
-        class="ace_editor">
+        <div
+            ui-ace="{
+                mode: 'javascript',
+                $blockScrolling: Infinity
+            }"
+            ng-model="currentFile.text"
+            ng-keyup="typeHandler($event)"
+            ng-keypress="keySave($event, currentFile)"
+            class="ace_editor">
+        </div>
     </div>
 
     <div id="bottom-panel">
         <button
-            ng-click="activePanel = 'console'">
+            ng-click="activePanel = 'console'"
+            class="panel-button"
+            ng-class="{ active: activePanel === 'console' }">
             Console
         </button>
         <button
-            ng-click="activePanel = 'video'">
+            ng-click="activePanel = 'video'"
+            class="panel-button"
+            ng-class="{ active: activePanel === 'video' }">
             Video
         </button>
         <button
-            ng-click="activePanel = 'whiteboard'">
+            ng-click="activePanel = 'whiteboard'"
+            class="panel-button"
+            ng-class="{ active: activePanel === 'whiteboard' }">
             Whiteboard
         </button>
 
@@ -55,5 +63,4 @@
         </video>
 
     </div>
-
 </div>

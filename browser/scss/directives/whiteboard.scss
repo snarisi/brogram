@@ -1,11 +1,31 @@
 whiteboard {
     #board {
-        height: 250px;
+        height: 400px;
         width: 800px;
         text-align: center;
+
+        #buttons {
+            position: absolute;
+            bottom: 10px;
+            #black, #erase, #clear {
+                height: 25px;
+                width: 40px;
+                padding: 0;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            #black {
+                background-color: black;
+                border: none;
+            }
+            #erase {
+                background-color: $white;
+                border: solid 1px black;
+            }
+        }
     }
     canvas {
-        background: white;
+        background: $white;
         cursor: cell;
     }
 }

@@ -8,11 +8,25 @@ app.directive('whiteboard', function (peer) {
             const canvas = element.find('canvas')[0];
             const ctx = canvas.getContext('2d');
 
+            // console.log(canvas);
+            //
             const style = getComputedStyle(document.getElementById('board'));
             canvas.width = parseInt(style.getPropertyValue('width'), 10);
             canvas.height = parseInt(style.getPropertyValue('height'), 10);
+            //
+            // const canvasRect = canvas.getBoundingClientRect();
+            // const bodyRect = document.body.getBoundingClientRect();
+            // const offsetTop = bodyRect.top - canvasRect.top;
+            // const offsetLeft = bodyRect.left - canvasRect.left;
+            //
+            // console.log(canvas.getBoundingClientRect());
+            // console.log(offsetTop);
+            // console.log(offsetLeft);
+            // console.log(element.find('canvas'));
+            // canvas.height = 215;
+            // canvas.width = 660;
 
-            ctx.linJoin = 'round';
+            ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
 
             scope.color = 'black';
@@ -41,11 +55,8 @@ app.directive('whiteboard', function (peer) {
 
             canvas.addEventListener('mousedown', e => {
                 drawing = true;
-                currentMousePosition.x = e.pageX - canvas.offsetLeft;
-                currentMousePosition.y = e.pageY - canvas.offsetTop;
-                //
-                // currentMousePosition.x = e.pageX;
-                // currentMousePosition.y = e.pageY;
+                currentMousePosition.x = e.offsetX;
+                currentMousePosition.y = e.offsetY;
             });
 
             canvas.addEventListener('mouseup', () => {
@@ -58,11 +69,9 @@ app.directive('whiteboard', function (peer) {
                 lastMousePosition.x = currentMousePosition.x;
                 lastMousePosition.y = currentMousePosition.y;
 
-                currentMousePosition.x = e.pageX - canvas.offsetLeft;
-                currentMousePosition.y = e.pageY - canvas.offsetTop;
+                currentMousePosition.x = e.offsetX;
+                currentMousePosition.y = e.offsetY;
 
-                // currentMousePosition.x = e.pageX;
-                // currentMousePosition.y = e.pageY;
                 peer.sendDrawing(lastMousePosition, currentMousePosition, scope.color);
                 draw(lastMousePosition, currentMousePosition, scope.color);
             });
