@@ -7,8 +7,17 @@ app.directive('videoChat', function (peer, $rootScope, $state) {
                                      navigator.webkitGetUserMedia ||
                                      navigator.mozGetUserMedia;
 
+            const constraints = {
+                audio: true,
+                video: {
+                    mandatory: {
+                        maxHeight: 200
+                    }
+                },
+            }
+
             $rootScope.$on('video on', function () {
-                navigator.getUserMedia({ audio: true, video: true }, hostStream => {
+                navigator.getUserMedia(constraints, hostStream => {
                     console.log(hostStream);
                     $rootScope.$on('video off', () => hostStream.getTracks()[0].stop());
                     peer.startVideoChat(scope.guestId, hostStream, call => {

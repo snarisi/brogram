@@ -54,13 +54,15 @@
             <whiteboard></whiteboard>
         </div>
 
-        <video
-            video-chat
-            ng-show="activePanel === 'video'"
-            id="video-element"
-            ng-click="startVideoChat(guestId)">
-            TEXT AND SHIT
-        </video>
+        <div
+            id="video-panel"
+            ng-show="activePanel === 'video'">
+            <video
+                video-chat
+                id="video-element"
+                ng-click="startVideoChat(guestId)">
+            </video>
+        </div>
 
     </div>
 </div>

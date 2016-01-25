@@ -9,6 +9,14 @@ app.factory('peer', function ($rootScope, $http) {
                              navigator.webkitGetUserMedia ||
                              navigator.mozGetUserMedia;
 
+    const constraints = {
+     audio: true,
+     video: {
+         mandatory: {
+             maxHeight: 200
+         }
+     },
+    }
 
     return {
         creatPeer: function (host) {
@@ -135,7 +143,7 @@ app.factory('peer', function ($rootScope, $http) {
 
         answerVideo: function (callback) {
             peer.on('call', function (call) {
-                navigator.getUserMedia({ audio: true, video: true }, guestStream => {
+                navigator.getUserMedia(constraints, guestStream => {
                     call.answer(guestStream);
                     callback(call);
                     call.on('end', () => $rootScope.$broadcast('call ended'));
