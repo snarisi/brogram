@@ -1,0 +1,22 @@
+{
+  "name": "Brogram",
+  "description": "Program with your bros",
+  "main": "server/start.js",
+  "authors": [
+    "Sam Narisi <snarisi@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/snarisi/cogram",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-ace": "bower"
+  }
+}
