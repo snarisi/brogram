@@ -24,9 +24,8 @@ app.factory('peer', function ($rootScope, $http) {
             peer = peer || new Peer(
                 host._id,
                 {
-                     host: window.location.hostname,
-                     port: 8080,
-                     path: '/api/peer',
+                     host: 'cogrampeer.herokuapp.com',
+                     port: ''
                  });
 
                  // listen for incoming requests
@@ -112,6 +111,7 @@ app.factory('peer', function ($rootScope, $http) {
 
         getConnectPeers: function (callback) {
             return peer.listAllPeers(peers => {
+                console.log('connected peers: ', peers)
                 peers = peers.filter(otherPeer => otherPeer !== peer.id)
                 return $http({
                     method: 'GET',
