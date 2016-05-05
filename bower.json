@@ -1,6 +1,6 @@
 {
-  "name": "Brogram",
-  "description": "Program with your bros",
+  "name": "Cogram",
+  "description": "Program with your friends",
   "main": "server/start.js",
   "authors": [
     "Sam Narisi <snarisi@gmail.com>"
