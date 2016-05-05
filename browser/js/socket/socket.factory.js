@@ -3,7 +3,6 @@ app.factory('socket', function () {
     const socket = window.io(window.location.origin);
 
     socket.on('fileUpdate', function (stuff) {
-        console.log('file update: ', stuff);
     })
 
     return {
@@ -21,13 +20,11 @@ app.factory('socket', function () {
         },
 
         updateFile: function (newFile) {
-            console.log('i am typing');
             socket.emit('typing', newFile);
         },
 
         trackFile: function (callback) {
             socket.on('other user typing', function (newFile) {
-                console.log('other user is typing: ', newFile.text)
                 callback(newFile);
             });
 
@@ -39,13 +36,11 @@ app.factory('socket', function () {
 
         listenForInvites: function (callback) {
             socket.on('invitation sent', function (data) {
-                console.log('yay, ' + data.host + ' invited me to join a room');
                 if (callback) callback(data);
             })
         },
 
         joinRoom: function (roomId) {
-            console.log('roomId on client ', roomId);
             //slice out leading /#, which we'll add back in on the server
             socket.emit('join room', roomId);
         }

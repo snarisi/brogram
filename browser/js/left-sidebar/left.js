@@ -51,7 +51,6 @@ app.directive('leftSidebar', function ($rootScope, $state, AuthService) {
             let videoOn = false;
 
             scope.toggleVideo = function () {
-                console.log('togglin')
                 if (!videoOn) $rootScope.$broadcast('video on');
                 else $rootScope.$broadcast('video off');
 

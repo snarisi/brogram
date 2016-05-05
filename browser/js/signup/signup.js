@@ -8,7 +8,6 @@ app.config(function ($stateProvider) {
 
 app.controller('SignupCtrl', function ($scope, $state, User) {
     $scope.sendNewUser = function (newUser) {
-        console.log('controller: ', newUser);
         User.newUser(newUser)
             .then(() => $state.go('main'))
             .then(null, err => $scope.error = err);

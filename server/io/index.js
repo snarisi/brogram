@@ -43,20 +43,6 @@ module.exports = function (server) {
             socket.broadcast.to(socket.id).emit(currentFile);
         });
 
-        //
-        // socket.on('invite', function (id) {
-        //     socket.broadcast.to(id).emit('invitation', socket.id);
-        // });
-        //
-        // socket.on('join room', function (roomId) {
-        //     console.log('room id from client: ', roomId);
-        //     roomId = '/#' + roomId;
-        //     console.log('socket ' + socket.id + 'wants to join room ' + roomId);
-        //     // io.to(socket.id).emit('fileUpdate', currentFile);
-        //     room = roomId;
-        //     socket.join(roomId);
-        // });
-
     });
 
     return io;

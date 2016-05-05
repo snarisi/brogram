@@ -12,7 +12,6 @@ app.config(function ($stateProvider) {
 })
 
 app.controller('MainCtrl', function ($scope, $rootScope, loggedInUser, peer) {
-    console.log('loggedInUser', loggedInUser)
     $scope.user = loggedInUser;
     $scope.incomingInvitation = null;
     $scope.guestId = null;
@@ -20,7 +19,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, loggedInUser, peer) {
     peer.creatPeer($scope.user);
     peer.getConnectPeers(peers => $scope.connectedPeers = peers);
     peer.onInvitation(invitation => {
-        console.log('invitation: ', invitation)
         $scope.incomingInvitation = invitation;
         $scope.$digest();
     });

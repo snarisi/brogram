@@ -8,23 +8,10 @@ app.directive('whiteboard', function (peer) {
             const canvas = element.find('canvas')[0];
             const ctx = canvas.getContext('2d');
 
-            // console.log(canvas);
             //
             const style = getComputedStyle(document.getElementById('board'));
             canvas.width = parseInt(style.getPropertyValue('width'), 10);
             canvas.height = parseInt(style.getPropertyValue('height'), 10);
-            //
-            // const canvasRect = canvas.getBoundingClientRect();
-            // const bodyRect = document.body.getBoundingClientRect();
-            // const offsetTop = bodyRect.top - canvasRect.top;
-            // const offsetLeft = bodyRect.left - canvasRect.left;
-            //
-            // console.log(canvas.getBoundingClientRect());
-            // console.log(offsetTop);
-            // console.log(offsetLeft);
-            // console.log(element.find('canvas'));
-            // canvas.height = 215;
-            // canvas.width = 660;
 
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
@@ -77,7 +64,6 @@ app.directive('whiteboard', function (peer) {
             });
 
             peer.getDrawing(function (start, end, color) {
-                console.log('boo', start, end, color);
                 draw(start, end, color);
             });
 

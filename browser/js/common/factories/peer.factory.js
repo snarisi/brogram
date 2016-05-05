@@ -111,7 +111,6 @@ app.factory('peer', function ($rootScope, $http) {
 
         getConnectPeers: function (callback) {
             return peer.listAllPeers(peers => {
-                console.log('connected peers: ', peers)
                 peers = peers.filter(otherPeer => otherPeer !== peer.id)
                 return $http({
                     method: 'GET',
@@ -150,15 +149,6 @@ app.factory('peer', function ($rootScope, $http) {
                     $rootScope.$on('end call', () => call.close());
                 }, err => console.error(err));
             });
-            //
-            // peer.on('call', function (call) {
-            //     console.log(guestStream);
-            //     call.answer(guestStream);
-            //     callback(call);
-            //     call.on('end', () => $rootScope.$broadcast('call ended'));
-            //     $rootScope.$on('end call', () => call.close());
-            // });
-
         },
 
         sendDrawing: function (start, end, color ) {

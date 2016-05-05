@@ -14,16 +14,11 @@ var server = new PeerServer({
         allow_discovery: true
 });
 //
-// var ioserver = require('http').Server(app);
-// var io = socketio(ioserver);
-// var users = {};
-
 server.on('connection', function (id) {
-    console.log(id);
-    // User.findById(id)
-    //     .then(user => console.log(user));
+    User.findById(id)
+      .then(user => console.log(user));
 });
 
 app.get('/api/connected', function (req, res, next) {
-    console.log('connected peers');
+    // console.log('connected peers');
 });

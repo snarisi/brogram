@@ -21,7 +21,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-    console.log(req.file);
     res.status(200).json(req.file);
 });
 
@@ -35,7 +34,6 @@ router.put('/:id', function (req, res, next) {
     req.file.text = req.body.text;
     req.file.save()
         .then(file => {
-            console.log(file);
             res.status(200).json(file)
         })
         .then(null, next);
@@ -44,7 +42,6 @@ router.put('/:id', function (req, res, next) {
 router.get('/ownedby/:userId', function (req, res, next) {
     File.find({ user: req.params.userId })
         .then(files => {
-            console.log(files);
             res.status(200).json(files)
         })
         .then(null, next);
