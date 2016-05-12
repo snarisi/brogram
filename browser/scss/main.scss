@@ -47,7 +47,9 @@ h2 {
   width: 100%;
   margin: 50px 0 0 50px;
   padding: 8px 57px 8px 8px;
-
+  h2 {
+    margin-left: -40px;
+  }
 }
 
 #main-view {

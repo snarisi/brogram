@@ -1,4 +1,4 @@
-app.factory('File', function ($http) {
+app.factory('File', function ($http, $q) {
 
     return {
         save: function (file) {
@@ -13,6 +13,7 @@ app.factory('File', function ($http) {
         },
 
         fetchAllByUser: function (userId) {
+            if (!userId) return $q.when([]);
             return $http.get('/api/files/ownedby/' + userId)
                 .then(res => res.data);
         },
