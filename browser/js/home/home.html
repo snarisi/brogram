@@ -4,6 +4,9 @@
     <div ng-if="!user">
         <button ui-sref="login" class="btn">Log In</button>
         <button ui-sref="signup" class="btn">Sign Up</button>
+        <div>
+          <a ui-sref="main">Skip</a>
+        </div>
     </div>
     <div ng-if="user">
         <button ui-sref="main" class="btn">Let's Cogram</button>

@@ -3,12 +3,17 @@
 
         <input
             type="text"
-            ng-model="currentFile.name">
+            ng-model="currentFile.name"
+            placeholder="Filename...">
         <button
+            ng-if="user._id"
             ng-click="save(currentFile)"
             class="btn save-button">
             save
         </button>
+        <a ui-sref="home" ng-if="!user._id">
+            Log in or sign up to save.
+        </a>
 
         <div
             ui-ace="{

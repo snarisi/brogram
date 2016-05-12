@@ -5,7 +5,11 @@ app.config(function ($stateProvider) {
         controller: 'MainCtrl',
         resolve: {
             loggedInUser: function (AuthService) {
-                return AuthService.getLoggedInUser();
+                return AuthService.getLoggedInUser()
+                    .then(user => {
+                        if (user) return user;
+                        else return { email: 'guest', _id: null };
+                    });
             }
         }
     });

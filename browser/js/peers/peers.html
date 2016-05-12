@@ -3,5 +3,8 @@
         <hr>
         <span ng-click="invite(peer._id, host)">{{peer.email}}</span>
     </li>
+    <li ng-if="!peers.length">
+        <span>No one's here ...</span>
+    </li>
     </a>
 </ul>

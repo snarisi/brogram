@@ -40,9 +40,12 @@
         </div>
     </div>
     <div>
-        <div ng-click="logout()">
+        <div ng-click="logout()" ng-if="user._id">
             <span>Logout</span>
             <span class="glyphicon glyphicon-log-out"></span>
+        </div>
+        <div ui-sref="home" ng-if="!user._id">
+            <span class="glyphicon glyphicon-log-in"></span>
         </div>
     </div>
 </div>

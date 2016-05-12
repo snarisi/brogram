@@ -11,7 +11,6 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, user) {
+app.controller('HomeCtrl', function ($scope, AuthService, $state, user) {
     $scope.user = user;
-
-})
+});
